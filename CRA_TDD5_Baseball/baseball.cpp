@@ -41,21 +41,31 @@ public:
 	GuessResult guess(const string& guessNumber) {
 		assertIllegalArgument(guessNumber);
 		bool result = false;
-		int matchcount = 0;
+		int strikeCount = 0;
+		int ballCount = 0;
 		for (int i = 0; i < 3; i++)
 		{
 			if (guessNumber[i] == question[i])
 			{
-				matchcount++;
+				strikeCount++;
+				continue;
+			}
+
+			for (int j = 0; j < 3; j++)
+			{
+				if (guessNumber[i] == question[j] && i != j)
+				{
+					ballCount++;
+				}
 			}
 		}
 
-		if (matchcount == 3)
+		if (strikeCount == 3)
 		{
 			result = true;
 		}
 
-		return { result, matchcount, 0 };
+		return { result, strikeCount, ballCount };
 	}
 
 private:
