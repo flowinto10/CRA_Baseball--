@@ -42,19 +42,11 @@ public:
 		assertIllegalArgument(guessNumber);
 		bool result = false;
 		int matchcount = 0;
-		if (guessNumber[0] == question[0]
-			&& guessNumber[1] == question[1]
-			&& guessNumber[2] == question[2])
+		for (int i = 0; i < 3; i++)
 		{
-			return { true, 3, 0 };
-		}
-		else {
-			for (int i = 0; i < 3; i++)
+			if (guessNumber[i] == question[i])
 			{
-				if (guessNumber[i] == question[i])
-				{
-					matchcount++;
-				}
+				matchcount++;
 			}
 		}
 
