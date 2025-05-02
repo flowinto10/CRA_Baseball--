@@ -1,30 +1,25 @@
 #include "gmock/gmock.h"
 #include "baseball.cpp"
 
-TEST(BaseballGame, ThrowExceptionWhenInpustLengthIsUnmatched)
-{
+class BaseballFixture : public testing::Test {
+public:
 	Baseball game;
-	EXPECT_THROW(game.guess(string("12")), length_error);
-}
-
-TEST(BaseballGame, ThrowExceptionWhenInvalidChar)
-{
-	Baseball game;
-	EXPECT_THROW(game.guess(string("12s")), invalid_argument);
-
-	try {
-		game.guess(string("12s"));
-		FAIL();
+	void assertIllegalArgument(string guessNumber) {
+		// game.guess() 수행 후 , Exception이 발생해야 Pass이다.
+		try {
+			game.guess(guessNumber);
+			FAIL();
+		}
+		catch (exception e) {
+			// PASS
+		}
 	}
-	catch (exception e) {
-		// PASS
-	}
-}
+};
 
-TEST(BaseballTS, exceptionTC1)
+TEST_F(BaseballFixture, ThrowExceptionWhenInvalidCase)
 {
-
-	EXPECT_EQ(1, 1);
+	assertIllegalArgument(string("12"));
+	assertIllegalArgument(string("12s"));
 }
 
 int main() {
